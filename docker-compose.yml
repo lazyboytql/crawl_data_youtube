@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Nokia_2730
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    environment:
+      API_KEY: "Your API_KEY"
+      DB_NAME: "postgres"
+      DB_USER: "postgres"
+      DB_PASSWORD: " your DB_PASSWORD"
+      DB_HOST: "postgres"
+      DB_PORT: "5432"
+    depends_on:
+      - postgres
+    volumes:
+      - ./app:/app
+
+volumes:
+  postgres_data:
